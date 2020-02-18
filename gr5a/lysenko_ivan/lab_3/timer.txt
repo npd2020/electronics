@@ -1,0 +1,74 @@
+int led[7] = {2, 3, 4, 5, 6, 7, 8};
+void mylow()
+{delay(1000);
+  for(int i = 0; i  7; i++)
+ digitalWrite(led[i], LOW);
+}
+void setup() {
+   put your setup code here, to run once
+for(int i = 0; i  7; i++)
+pinMode(led[i], OUTPUT);
+}
+
+void loop() {
+   put your main code here, to run repeatedly
+  for(int i = 0; i  7; i++)
+ { 
+  if (i == 3)
+  continue;
+  digitalWrite(led[i], HIGH);
+  }
+
+mylow();
+digitalWrite(led[2], HIGH);
+  digitalWrite(led[4], HIGH);
+
+ mylow();
+ digitalWrite(led[1], HIGH);
+  digitalWrite(led[2], HIGH);
+  digitalWrite(led[3], HIGH); 
+  digitalWrite(led[6], HIGH);
+  digitalWrite(led[5], HIGH);
+ mylow();
+  digitalWrite(led[1], HIGH);
+  digitalWrite(led[2], HIGH);
+  digitalWrite(led[3], HIGH); 
+  digitalWrite(led[4], HIGH);
+  digitalWrite(led[5], HIGH);
+   mylow();
+
+    digitalWrite(led[0], HIGH);
+  digitalWrite(led[2], HIGH);
+  digitalWrite(led[3], HIGH); 
+  digitalWrite(led[4], HIGH);
+   mylow();
+
+  digitalWrite(led[0], HIGH);
+  digitalWrite(led[1], HIGH);
+  digitalWrite(led[3], HIGH); 
+  digitalWrite(led[4], HIGH);
+  digitalWrite(led[5], HIGH);
+   mylow();
+
+    digitalWrite(led[0], HIGH);
+  digitalWrite(led[1], HIGH);
+  digitalWrite(led[3], HIGH); 
+  digitalWrite(led[4], HIGH);
+  digitalWrite(led[5], HIGH);
+  digitalWrite(led[6], HIGH);
+  mylow();
+
+     digitalWrite(led[1], HIGH);
+  digitalWrite(led[2], HIGH);
+  digitalWrite(led[4], HIGH); 
+  mylow();
+
+  for(int i = 0; i  7; i++)
+ digitalWrite(led[i], HIGH);
+ mylow();
+
+ for(int i = 0; i  6; i++)
+  digitalWrite(led[i], HIGH);
+ 
+ mylow();
+}
