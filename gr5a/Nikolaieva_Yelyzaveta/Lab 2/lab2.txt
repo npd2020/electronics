@@ -1,0 +1,2 @@
+﻿amplitude frequancy respons
+phase frequancy respons
