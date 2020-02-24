@@ -1,9 +1,9 @@
 void setup() {
 
-  pinMode(8,OUTPUT);
-  pinMode(9,OUTPUT);
-  pinMode(10,OUTPUT);
-  pinMode(11,OUTPUT);
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(4,OUTPUT);
+  pinMode(5,OUTPUT);
 
 
   
@@ -21,10 +21,10 @@ void loop() {
   i=0;
 
   for(int j=0;j<4;j++)
-    digitalWrite(8+j,LOW);
+    digitalWrite(2+j,LOW);
   }
     
-   digitalWrite(8+i,HIGH);
+   digitalWrite(2+i,HIGH);
 
   delay(100);
   
