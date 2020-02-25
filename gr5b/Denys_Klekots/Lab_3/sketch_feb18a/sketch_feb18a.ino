@@ -4,30 +4,45 @@ void setup() {
   pinMode(3,OUTPUT);
   pinMode(4,OUTPUT);
   pinMode(5,OUTPUT);
-
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(8,OUTPUT);
+  pinMode(9,OUTPUT);
+  pinMode(10,OUTPUT);
 
   
 }
 
-int i=0;
+void number (int n){
+
+  digitalWrite (10,HIGH);
+
+  for(int i=2;i<10;i++){
+    digitalWrite (10,HIGH);
+  }
+  
+  switch (n){
+    
+    case 1:
+      digitalWrite (5,HIGH);
+      digitalWrite (9,HIGH);
+      break;
+    case 2:
+      digitalWrite (4,HIGH);
+      digitalWrite (5,HIGH);
+      digitalWrite (6,HIGH);
+      digitalWrite (7,HIGH);
+      digitalWrite (8,HIGH);
+      break;
+  }
+  
+  
+   
+}
 
 
 void loop() {
-
- if(i==4){
-
-  delay(1000);
   
-  i=0;
-
-  for(int j=0;j<4;j++)
-    digitalWrite(2+j,LOW);
-  }
-    
-   digitalWrite(2+i,HIGH);
-
-  delay(100);
-  
-  i++;
+  number(1);
   
 }
