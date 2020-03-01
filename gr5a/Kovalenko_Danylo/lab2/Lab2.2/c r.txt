@@ -1,2 +1,0 @@
-c=0,2 mcF
-abs(z)/abs(y) = 13,9 kOm pry podkl resist
