@@ -210,6 +210,8 @@ aboveskip=3pt
 \define@cmdkey[CW]{TitlePage}{CityOfResearch}[Місто]{}
 \define@cmdkey[CW]{TitlePage}{YearOfResearch}[рік]{}
 %%
+\define@cmdkey[CW]{TitlePage}{NumberOfAuthors}[1]{}
+%%
 \define@cmdkey[CW]{TitlePage}{ResearchTitle}[\LaTeX{} \,--\, шаблон студентських наукових робіт]{}
 \define@cmdkey[CW]{TitlePage}{StudentName}[ПІБ]{}
 \define@cmdkey[CW]{TitlePage}{StudentSex}[male]{}
@@ -217,67 +219,119 @@ aboveskip=3pt
 \define@cmdkey[CW]{TitlePage}{StudentCourse}[курс]{}
 \define@cmdkey[CW]{TitlePage}{StudentSpeciality}[Спеціальність]{}
 %%
+\define@cmdkey[CW]{TitlePage}{SecondStudentName}[null]{}
+\define@cmdkey[CW]{TitlePage}{SecondStudentSex}[male]{}
+\define@cmdkey[CW]{TitlePage}{SecondStudentGroup}[група]{}
+\define@cmdkey[CW]{TitlePage}{SecondStudentCourse}[курс]{}
+\define@cmdkey[CW]{TitlePage}{SecondStudentSpeciality}[Спеціальність]{}
+%%
+\define@cmdkey[CW]{TitlePage}{ThirdStudentName}[null]{}
+\define@cmdkey[CW]{TitlePage}{ThirdStudentSex}[male]{}
+\define@cmdkey[CW]{TitlePage}{ThirdStudentGroup}[група]{}
+\define@cmdkey[CW]{TitlePage}{ThirdStudentCourse}[курс]{}
+\define@cmdkey[CW]{TitlePage}{ThirdStudentSpeciality}[Спеціальність]{}
+%%
 \define@cmdkey[CW]{TitlePage}{SupervisorDegree}[професор]{}
 \define@cmdkey[CW]{TitlePage}{SupervisorName}[ПІБ]{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\MakeTitlePage}[1]{
-	\setkeys[CW]{TitlePage}{#1}
-	\thispagestyle{empty}
-%
-	\begin{center}
-		\par\noindent\MakeUppercase{\cmdCW@TitlePage@MinistryName}
-		\par\noindent\MakeUppercase{\cmdCW@TitlePage@UniversityName}
-		\par\noindent\MakeUppercase{\cmdCW@TitlePage@FacultyName}
-		\par\noindent\MakeUppercase{\cmdCW@TitlePage@DepartmentName}
-		\vfill		
-		\par\noindent\MakeUppercase{\cmdCW@TitlePage@ResearchTitle}
-	\end{center}
-%
-	\vfill	
-%
-\begin{flushleft}
-	\hyphenpenalty=10000 % не использовать переносы на титульной странице
-	\pretolerance=10000
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\begin{minipage}[t]{1\textwidth}
-		\begin{minipage}[t]{0.3\textwidth}
-			\ifthenelse
-				{\equal{\cmdCW@TitlePage@StudentSex}{male}}
-				{\par\noindent Виконав:}
-				{\par\noindent Виконала:}
+		\setkeys[CW]{TitlePage}{#1}
+		\thispagestyle{empty}
+	%
+		\begin{center}
+			\par\noindent\MakeUppercase{\cmdCW@TitlePage@MinistryName}
+			\par\noindent\MakeUppercase{\cmdCW@TitlePage@UniversityName}
+			\par\noindent\MakeUppercase{\cmdCW@TitlePage@FacultyName}
+			\par\noindent\MakeUppercase{\cmdCW@TitlePage@DepartmentName}
+			\vfill		
+			\par\noindent\MakeUppercase{\cmdCW@TitlePage@ResearchTitle}
+		\end{center}
+	%
+		\vfill	
+	%
+	\begin{flushleft}
+		\hyphenpenalty=10000 % не использовать переносы на титульной странице
+		\pretolerance=10000
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\begin{minipage}[t]{1\textwidth}
+			\begin{minipage}[t]{0.3\textwidth}
+				\ifthenelse
+				{\equal{\cmdCW@TitlePage@NumberOfAuthors}{1}}
+				{\ifthenelse
+					{\equal{\cmdCW@TitlePage@StudentSex}{male}}
+					{\par\noindent Виконав:}
+					{\par\noindent Виконала:}
+				}
+				{
+					\par\noindent Виконали:	
+				}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t]{0.5\textwidth}
+				\par\noindent 
+				\ifthenelse
+					{\equal{\cmdCW@TitlePage@StudentSex}{male}}
+					{студент}
+					{студентка}
+				\cmdCW@TitlePage@StudentCourse\ курсу \cmdCW@TitlePage@StudentGroup\ групи спеціальності
+				\par\noindent\cmdCW@TitlePage@StudentSpeciality
+				\par\noindent\cmdCW@TitlePage@StudentName
+			\end{minipage}
+
+			\ifthenelse{\equal{\cmdCW@TitlePage@SecondStudentName}{null}}
+			{}
+			{
+				\bigskip\par\bigskip
+				\hfill
+				\begin{minipage}[t]{0.49\textwidth}
+				\par\noindent 
+				\ifthenelse
+					{\equal{\cmdCW@TitlePage@SecondStudentSex}{male}}
+					{студент}
+					{студентка}
+				\cmdCW@TitlePage@SecondStudentCourse\ курсу \cmdCW@TitlePage@SecondStudentGroup\ групи спеціальності
+				\par\noindent\cmdCW@TitlePage@SecondStudentSpeciality
+				\par\noindent\cmdCW@TitlePage@SecondStudentName
+				\end{minipage}
+			}
+
+			\ifthenelse{\equal{\cmdCW@TitlePage@ThirdStudentName}{null}}
+			{}
+			{
+				\bigskip\par\bigskip
+				\hfill
+				\begin{minipage}[t]{0.49\textwidth}
+				\par\noindent 
+				\ifthenelse
+					{\equal{\cmdCW@TitlePage@ThirdStudentSex}{male}}
+					{студент}
+					{студентка}
+				\cmdCW@TitlePage@ThirdStudentCourse\ курсу \cmdCW@TitlePage@ThirdStudentGroup\ групи спеціальності
+				\par\noindent\cmdCW@TitlePage@ThirdStudentSpeciality
+				\par\noindent\cmdCW@TitlePage@ThirdStudentName
+				\end{minipage}
+			}
 		\end{minipage}
-		\hfill
-		\begin{minipage}[t]{0.5\textwidth}
-			\par\noindent 
-			\ifthenelse
-				{\equal{\cmdCW@TitlePage@StudentSex}{male}}
-				{студент}
-				{студентка}
-			\cmdCW@TitlePage@StudentCourse\ курсу \cmdCW@TitlePage@StudentGroup\ групи спеціальності
-			\par\noindent\cmdCW@TitlePage@StudentSpeciality
-			\par\noindent\cmdCW@TitlePage@StudentName
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\bigskip\par\bigskip
+		\begin{minipage}[t]{1\textwidth}
+			\begin{minipage}[t]{0.3\textwidth}
+				\par\noindent Науковий керівник:
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t]{0.5\textwidth}
+				\par\noindent \cmdCW@TitlePage@SupervisorDegree
+				\par\noindent \cmdCW@TitlePage@SupervisorName
+			\end{minipage}
 		\end{minipage}
-	\end{minipage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bigskip\par\bigskip
-	\begin{minipage}[t]{1\textwidth}
-		\begin{minipage}[t]{0.3\textwidth}
-			\par\noindent Науковий керівник:
-		\end{minipage}
-		\hfill
-		\begin{minipage}[t]{0.5\textwidth}
-			\par\noindent \cmdCW@TitlePage@SupervisorDegree
-			\par\noindent \cmdCW@TitlePage@SupervisorName
-		\end{minipage}
-	\end{minipage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\end{flushleft}
-\vfill
-	\begin{center}
-	\cmdCW@TitlePage@CityOfResearch\ \,--\, \cmdCW@TitlePage@YearOfResearch	
-	\end{center}
-	\pagebreak
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\end{flushleft}
+	\vfill
+		\begin{center}
+		\cmdCW@TitlePage@CityOfResearch\ \,--\, \cmdCW@TitlePage@YearOfResearch	
+		\end{center}
+		\pagebreak
 }
 \makeatother
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
