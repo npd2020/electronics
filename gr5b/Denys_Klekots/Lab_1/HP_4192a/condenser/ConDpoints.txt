@@ -1,0 +1,24 @@
+Frequency(kHz)  Capacity(Farad) Industance(Genry)	Impedance(Om)
+50 		 0.238mic	-106.3m 		6.68
+100 		 0.25mic	-1mic 			6.3
+150 		 0.27mic 	-4mic 			3.8
+200 		 0.32mic	-1.96mic 		2.52
+250		 0.4mic		-0.99mic 		1.66
+300 		 0.59mic 	-0.47mic 		1
+350 		 1.3mic 	-0.16mic 		0.7
+400 		 -4.3mic 	0.37mic 		0.62
+450 		 -0.7mic 	1.74mic 		0.8
+500 	    	 -0.37mic 	0.27mic 		1
+550		 -0.24mic 	0.34mic 		1.3
+600		 -0.18mic 	0.39mic 		1.64
+650		 -0.37mic 	0.44mic 		1.92
+700		 -109n 		0.47mic 		2.19
+750		 -90n 		0.5mic 			2.44
+800 		 -74n 		0.29mic 		2.75
+850		 -64n 		0.55mic 		3
+900 		 -64n 		0.57mic 		3
+950		 -49n 		0.57mic 		3.5
+1000		 -43.4n 	0.58mic 		3.7    
+
+
+
