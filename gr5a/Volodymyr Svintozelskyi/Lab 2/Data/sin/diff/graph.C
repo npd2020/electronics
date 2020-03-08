@@ -254,7 +254,8 @@ void graph(){
     }
     cout<<"loading ended"<<endl;
     TCanvas* final = new TCanvas();
-    final->Divide(2,1);
+    // final->Divide(2,1);
+    final->SetLogx();
     TGraph* ampgraph = new TGraph(N, ampDelta.x,ampDelta.y);
     ampgraph->SetTitle(";#omega [Hz];K(#omega)");
     ampgraph->Draw("AP");
@@ -267,6 +268,7 @@ void graph(){
     setFitStyleCanvas(final);
     save(final,"FINAL_K");
     TCanvas* final2 = new TCanvas();
+    final2->SetLogx();
     TGraph* phgraph = new TGraph(N, phaseDelta.x,phaseDelta.y);
     phgraph->SetTitle(";#omega [Hz];#phi(#omega)");
     phgraph->Draw("AP");
