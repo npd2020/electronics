@@ -1,0 +1,45 @@
+int const analog = A0;
+int led[5] = {2, 3, 4, 5, 6};
+int val = 0;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+for (int i = 0; i < 5; i++)
+    pinMode(led[i], OUTPUT);
+}
+
+void loop() {
+ // int mysignal;
+  // put your main code here, to run repeatedly:
+  val = analogRead(analog);
+
+  if(150 <val)
+   digitalWrite(led[0], HIGH);
+   else
+   digitalWrite(led[0], LOW);
+   
+   if(320 <val)
+  digitalWrite(led[1], HIGH); 
+  else
+   digitalWrite(led[1], LOW);
+   
+   if(490 <val)
+   digitalWrite(led[2], HIGH); 
+   else
+   digitalWrite(led[2], LOW);
+   
+   if(660 <val)
+   digitalWrite(led[3], HIGH);
+   else
+   digitalWrite(led[3], LOW);
+
+   if(830 <val)
+   digitalWrite(led[4], HIGH);
+   else
+   digitalWrite(led[4], LOW);
+
+//analogWrite(led, val/5);
+
+Serial.println(val);
+delay(500);
+}
