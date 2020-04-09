@@ -34,9 +34,9 @@ void numbers(int& counterStart, int& counterEnd, ifstream& input,double crackDis
 
 		}
 
-		///////////////
-		if (i % 100) cout << "\a";
-		///////////////
+		/////////////////
+		//if (i % 100) cout << "\a";
+		/////////////////
 
 		if ((char)idle == 'e') cout << "bad :-(" << endl;
 	}
@@ -84,7 +84,7 @@ double coefficientSin(double* data, int size, double step, double period,int num
 
 	}
 
-	ret *= period;
+	ret /= size;
 
 	return ret;
 }
@@ -101,66 +101,48 @@ double coefficientCos(double* data, int size, double step, double period, int nu
 
 	}
 
-	ret *= period;
+	ret /= size;
 
 	return ret;
 }
 
+double coefficients(char* inputName, int number_of_coefficients,double crackDist,double* amplitude, double* phase) {
 
-int main()
-{
- //   //////////////////////////////
-	//ofstream T;
-	//T.open("Test.txt");
-	//
-	//for (int i = 0; i < 10000; i++) {
-
-	//	T<< i*4/100000.0 << "\t";
-
-	//	if ((i*10/3205) % 2) T << 100 << endl;
-	//	else T << -100 << endl;
-
-	//}
-	//T.close();
-	/////////////////////////////////
-
-	char inputName[] = "Test.txt";
-	char outputName[]= "Res.txt";
-	int const number_of_coefficients = 211;
-	double crackDist = 0.025;
 	int counterStart;//нумерується з 0
 	int counterEnd;
 
 	ifstream input;
-	ofstream output;
-	
+
 	input.open(inputName);
 	numbers(counterStart, counterEnd, input, crackDist);
 	input.close();
 
-	cout << counterStart << endl;
+	/*cout << counterStart << endl;
 	cout << counterEnd << endl;
-	cout << "----------" << endl;
+	cout << "----------" << endl;*/
 
-	double step=0;
-	double period=0;
+	double step = 0;
+	double period = 0;
 	double* data;
 	data = new double[counterEnd - counterStart + 1];
 
 	input.open(inputName);
 	dataRead(data, counterStart, counterEnd, input, step, period);
-	output.close();
+	input.close();
 
-	for (int i = 0; i < counterEnd - counterStart + 1; i++) {
+	/*for (int i = 0; i < counterEnd - counterStart + 1; i++) {
 		cout << data[i] << endl;
 	}
 
 	cout << "-------------" << endl;
-	cout <<"step ="<< step<<endl;
-	cout <<"period ="<< period << endl;
+	cout << "step =" << step << endl;
+	cout << "period =" << period << endl;*/
 
-	double coefficientsin[number_of_coefficients];
-	double coefficientcos[number_of_coefficients];
+	double* coefficientsin;
+	double* coefficientcos;
+
+	coefficientsin = new double[number_of_coefficients];
+	coefficientcos = new double[number_of_coefficients];
 
 	for (int i = 0; i < number_of_coefficients; i++) {
 
@@ -169,17 +151,109 @@ int main()
 
 	}
 
-	output.open(outputName);
-
-	output << "Coef. sin \t Coef. cos" << endl;
-
 	for (int i = 0; i < number_of_coefficients; i++) {
 
-		output << coefficientsin[i] << "\t \t" << coefficientcos[i]<<endl;
+		amplitude[i] = sqrt(coefficientsin[i] * coefficientsin[i] + coefficientcos[i] * coefficientcos[i]);
+
+		phase[i] = atan(coefficientsin[i] / coefficientcos[i]);
 
 	}
 
-	output.close();
 
+	delete[] coefficientsin;
+	delete[] coefficientcos;
 	delete[] data;
+
+	return 2 * M_PI / period;
+}
+
+void graph(double* amplitude, double* phase, int number_of_coefficients, double frequency) {
+
+	ofstream T;
+
+	T.open("graph.txt");
+
+	double x = 0;
+	double step=0.00001;
+	double ret;
+	while (x < 0.1) {
+
+		ret = 0;
+
+		for (int i = 0; i < number_of_coefficients; i++) {
+
+			ret += amplitude[i] * cos(frequency * i * x + phase[i]);
+
+		}
+
+		T << x << "\t" << ret << endl;
+
+		x += step;
+	}
+	
+
+}
+
+void write(char* name) {
+
+	ofstream T;
+	T.open(name);
+
+	for (int i = 0; i < 100000; i++) {
+
+		if ((i*10 / 3205) % 2) T << (double)4*i/100000.0<<"\t"<<1<<endl;
+		else T << (double)4*i/100000.0 << "\t" << -1 << endl;
+
+	}
+	T.close();
+
+}
+
+int main()
+{
+
+	char inputName[] = "name";
+	char outputName[]= "CH2.txt";
+
+	write(inputName);
+
+	char result[] = "Result.txt";
+
+	int const number_of_coefficients = 211;
+	//int const number_of_coefficients = 211;
+	double crackDist = 0.025;
+
+	//////////////////////////////
+	//write(inputName);
+	//////////////////////////////
+
+	double amplitudeIn[number_of_coefficients];
+	double phaseIn[number_of_coefficients];
+
+	double amplitudeOut[number_of_coefficients];
+	double phaseOut[number_of_coefficients];
+
+	double frequencyIn = coefficients(inputName, number_of_coefficients, crackDist, amplitudeIn, phaseIn);
+	double frequencyOut = coefficients(inputName, number_of_coefficients, crackDist, amplitudeOut, phaseOut);
+
+	double frequency = (frequencyIn + frequencyOut) / 2;
+
+	ofstream resultFile;
+
+	resultFile.open(result);
+
+	resultFile << "frequency \t coefficient \t phase" << endl;
+
+	for (int i = 0; i < number_of_coefficients; i++) {
+
+		resultFile << i * frequency << "\t" << amplitudeIn[i] / amplitudeOut[i] << "\t";
+		resultFile << phaseOut[i] - phaseIn[i] << endl;
+
+
+	}
+
+
+	graph(amplitudeIn, phaseIn, number_of_coefficients, frequency);
+	
+
 }
