@@ -10,34 +10,6 @@ using namespace std;
 int const Average = 11;//завжди не парне
 bool letGA;//генеральне, чи біжуче середнє, це допоміжна змінна, використовується дальше
 double crackDist;
-int debugging = 0;
-
-void graph_(double* cc, double* cs, int number_of_coefficients, double frequency, char* Name) {
-
-	ofstream T;
-
-	T.open(Name);
-
-	double x = 0;
-	double step = 0.001;
-	double ret;
-	while (x < 10/ frequency) {
-
-		ret = 0;
-
-		for (int i = 0; i < number_of_coefficients; i++) {
-
-			ret += cc[i] * cos(frequency*i * x) + cs[i] * sin(frequency*i * x);
-
-		}
-
-		T << x << "\t" << ret << endl;
-
-		x += step;
-	}
-
-
-}
 
 void showVector(vector<string> v, char* name) {
 	ofstream GoodPoints(name);
@@ -85,7 +57,6 @@ void numbers(int& counterStart, int& counterEnd, ifstream& input) {
 	counterStart = 0;
 	counterEnd = 0;
 	bool one = true;
-	//bool one = false;//прораховуємо лише половину імаульса
 
 	input >> idle;
 	input >> number;
@@ -154,16 +125,6 @@ void travelingAverage(double*& data, int size) {
 	delete[] data;
 
 	data = newdata;
-	
-	//////
-	//double min=data[0];
-
-	//for (int i = 1; i < size; i++)
-	//	if (data[i] < min) min = data[i];
-
-	//for (int i = 0; i < size; i++)
-	//	data[i] -= min;
-	//////
 }
 
 void genetalAverage(double* data, int size) {
@@ -171,7 +132,7 @@ void genetalAverage(double* data, int size) {
 	double ret = 0;
 	int halth;
 
-	for (int i = 0; i < size-1; i++) {
+	for (int i = 0; i < size - 1; i++) {
 
 		if (fabs(data[i] - data[i + 1]) > crackDist) {
 			halth = i;
@@ -191,19 +152,13 @@ void genetalAverage(double* data, int size) {
 	ret = 0;
 
 
-	for (int i = halth+1; i < size; i++)
+	for (int i = halth + 1; i < size; i++)
 		ret += data[i];
 
 	ret /= halth;
 
 	for (int i = halth + 1; i < size; i++)
 		data[i] = ret;
-
-
-	ret = fabs(ret) / 2;//це чисто для виправлення сигналу
-	for (int i = 0; i < size; i++)
-		data[i] -= ret;
-
 }
 
 void dataRead(double*& data, int counterStart, int counterEnd, ifstream& input, double& step, double& period) {
@@ -233,22 +188,6 @@ void dataRead(double*& data, int counterStart, int counterEnd, ifstream& input, 
 
 	if (letGA) genetalAverage(data, size);
 	else travelingAverage(data, size);
-
-
-
-	//////////////////////////////////////////////
-
-	ofstream T;
-	T.open("Control.txt");
-
-	for (int i = 0; i < size; i++)
-		T << i * step << "\t" << data[i] << endl;
-
-	T.close();
-
-	system("PAUSE");
-	//////////////////////////////////////////////
-
 }
 
 double coefficientSin(double* data, int size, double step, double period, int number) {
@@ -311,20 +250,6 @@ double coefficients(char* inputName, int number_of_coefficients, double* amplitu
 
 	}
 
-	///////////////////////
-
-	char N1[] = "N1.txt";
-	char N2[] = "N2.txt";
-
-	if (debugging == 0) {
-		graph_(coefficientcos, coefficientsin, number_of_coefficients, 2 * M_PI / period, N1);
-		debugging++;
-	}
-	else graph_(coefficientcos, coefficientsin, number_of_coefficients, 2 * M_PI / period, N2);
-
-
-	///////////////////////
-
 	for (int i = 0; i < number_of_coefficients; i++) {
 
 		amplitude[i] = sqrt(coefficientsin[i] * coefficientsin[i] + coefficientcos[i] * coefficientcos[i]);
@@ -341,33 +266,6 @@ double coefficients(char* inputName, int number_of_coefficients, double* amplitu
 	return 2 * M_PI / period;
 }
 
-void graph(double* amplitude, double* phase, int number_of_coefficients, double frequency, char* Name) {
-
-	ofstream T;
-
-	T.open(Name);
-
-	double x = 0;
-	double step = 0.001;
-	double ret;
-	while (x < 10/ frequency) {
-
-		ret = 0;
-
-		for (int i = 0; i < number_of_coefficients; i++) {
-
-			ret += amplitude[i] * cos(frequency * i * x - phase[i]);
-
-		}
-
-		T << x << "\t" << ret << endl;
-
-		x += step;
-	}
-
-
-}
-
 int main()
 {
 	char badinputName[] = "F0000CH1.txt";
@@ -377,11 +275,10 @@ int main()
 	char outputName[] = "CH2.txt";
 
 	char result[] = "Result.txt";
-   
-	//int const number_of_coefficients = 160;
-	int const number_of_coefficients = 82;
-	int avar=11;//завжди не парне
-	crackDist = 1.5;
+
+	int const number_of_coefficients = 40;
+	int avar = 11;//завжди не парне
+	crackDist = 0.025;
 
 
 	overwriting(badinputName, inputName);
@@ -426,17 +323,12 @@ int main()
 		reductionAnplitude[i] = amplitudeOut[i] / amplitudeIn[i];
 		differencePhase[i] = phaseOut[i] - phaseIn[i];
 
-		//if (differencePhase[i] < 0) differencePhase[i] += M_PI;//різниця фаз має бути додатньою від 0 до 3.1415...
-
 	}
 
 	char In[] = "In.txt";
 	char Out[] = "Out.txt";
 
-	graph(amplitudeOut, phaseOut, number_of_coefficients, frequency, Out);
-	graph(amplitudeIn, phaseIn, number_of_coefficients, frequency, In);
-
-	for (int i = 1; i < number_of_coefficients; i+=2) {
+	for (int i = 1; i < number_of_coefficients; i += 2) {
 
 		resultFile << i * frequency << "\t" << reductionAnplitude[i] << "\t";
 		resultFile << differencePhase[i] << endl;
