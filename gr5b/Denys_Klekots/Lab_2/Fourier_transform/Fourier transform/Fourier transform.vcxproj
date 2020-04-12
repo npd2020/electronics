@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{28508600-15F1-449F-83DA-66A2EA4CC847}</ProjectGuid>
+    <ProjectGuid>{C8D3AA8B-A658-4CF1-BCFE-D96EA350841A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Fouriertransform</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
