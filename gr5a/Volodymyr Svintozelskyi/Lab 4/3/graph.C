@@ -259,11 +259,14 @@ void graph(){
     ampgraph->SetTitle(";#omega [Hz];K(#omega)");
     ampgraph->Draw("AP");
 
-    double rc=20e3*154e-9; // 0.0246543
-    TF1* theoryK = new TF1("K", [](double* x, double* pars){return 1/sqrt(1+pow(x[0]*pars[0],2));},-2,1.5e3,1);
-    // theoryK->Draw("same");
-    ampgraph->Fit(theoryK);
-
+    // double rc1=5.38e-3; // 0.0246543
+    // double rc2=5.38e-3;
+    // TF1* theoryK = new TF1("K", [](double* x, double* pars){return ;},-2,1.5e3,2);
+    // theoryK->SetParameter(0,rc1);
+    // theoryK->SetParameter(1,rc2);
+    // // theoryK->Draw("same");
+    // ampgraph->Fit(theoryK);
+    final->SetLogx();
     setFitStyleCanvas(final);
     save(final,"FINAL_K");
     TCanvas* final2 = new TCanvas();
@@ -271,10 +274,12 @@ void graph(){
     phgraph->SetTitle(";#omega [Hz];#phi(#omega)");
     phgraph->Draw("AP");
 
-    TF1* theoryPh = new TF1("Ph", [](double* x, double* pars){return -TMath::ATan((x[0]*pars[0]));},-2,1.5e3,1);
-    // theoryPh->Draw("same");
-    phgraph->Fit(theoryPh);
-    
+    // TF1* theoryPh = new TF1("Ph", [](double* x, double* pars){return -TMath::ATan((x[0]*pars[1]))+TMath::ATan(1/(x[0]*pars[0]));},-2,1.5e3,2);
+    // theoryPh->SetParameter(0,rc1);
+    // theoryPh->SetParameter(1,rc2);
+    // // theoryPh->Draw("same");
+    // phgraph->Fit(theoryPh);
+    final2->SetLogx();
     setFitStyleCanvas(final2);
     save(final2,"FINAL_Phi");
 }
