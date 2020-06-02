@@ -1,0 +1,50 @@
+#include <LiquidCrystal.h>
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+#define ANALOG_PIN A5
+
+int vmax, vmin;
+long int sum_n;
+const int n = 100;
+
+void setup() {
+  lcd.begin(16, 2);
+  sum_n = 0;
+  for (int i = 0; i < n; i++){
+    sum_n += analogRead(ANALOG_PIN);
+    delay(5);
+  }
+  vmax = sum_n / n;
+  vmin = vmax;
+}
+
+void loop() {
+  sum_n = 0;
+  for (int i = 0; i < n; i++){
+    sum_n += analogRead(ANALOG_PIN);
+    delay(5);
+  }
+  int value = sum_n/n;
+
+  if (value > vmax){
+    vmax = value;
+  }
+  if (value < vmin){
+    vmin = value;
+  }
+
+  lcd.clear();
+  lcd.print("Min: ");
+  lcd.setCursor(4,0);
+  lcd.print(vmin);
+  lcd.setCursor(8,0);
+  lcd.print("Max: ");
+  lcd.setCursor(12,0);
+  lcd.print(vmax);
+  lcd.setCursor(0,1);
+  lcd.print("Current:");
+  lcd.setCursor(8,1);
+  lcd.print(value);
+}
