@@ -1,0 +1,96 @@
+float napruga;
+int napruga_fixed;
+double dell=100;
+void setup() {
+  pinMode(A7,INPUT);
+  for(int i=2; i<9;i++) pinMode(i, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+   napruga =analogRead(A7);
+  napruga_fixed = map(napruga,0,1023,0,16);
+  constrain(napruga_fixed,0,16);
+  Serial.println(napruga_fixed);
+ // napruga_fixed=1;
+  switch(napruga_fixed){
+    case 0: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(5,LOW);
+            delay(dell);
+            break;
+    case 1: digitalWrite(2,HIGH);
+            digitalWrite(8,HIGH);
+            delay(dell);
+            break;
+    case 2: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(2,LOW);
+            digitalWrite(6,LOW);
+            delay(dell);
+            break;
+    case 3: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(6,LOW);
+            digitalWrite(4,LOW);
+            delay(dell);
+            break;
+    case 4: digitalWrite(8,HIGH);
+            digitalWrite(6,HIGH);
+            digitalWrite(5,HIGH);
+            digitalWrite(2,HIGH);
+            delay(dell);
+            break;
+    case 5: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(4,LOW);
+            digitalWrite(8,LOW);
+            delay(dell);
+            break;
+    case 6: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(8,LOW);
+            delay(dell);
+            break;
+    case 7: digitalWrite(7,HIGH);
+            digitalWrite(2,HIGH);
+            digitalWrite(8,HIGH);
+            delay(dell);
+            break;
+    case 8:for(int i=2; i<9;i++) digitalWrite(i,HIGH); 
+            delay(dell);
+            break;
+    case 9: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(4,LOW);
+            delay(dell);
+            break;
+    case 10: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(3,LOW);
+            delay(dell);
+            break;
+    case 11: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(8,LOW);
+            digitalWrite(7,LOW);
+            delay(dell);
+            break;
+    case 12: digitalWrite(3,HIGH);
+            digitalWrite(4,HIGH);
+            digitalWrite(6,HIGH);
+            digitalWrite(7,HIGH);
+            delay(dell);
+            break;
+    case 13: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(6,LOW);
+            digitalWrite(7,LOW);
+            delay(dell);
+            break;
+    case 14: for(int i=2; i<9;i++) digitalWrite(i,HIGH);
+            digitalWrite(8,LOW);
+            digitalWrite(2,LOW);
+            delay(dell);
+            break;
+    case 15: digitalWrite(5,HIGH);
+            digitalWrite(4,HIGH);
+            digitalWrite(6,HIGH);
+            digitalWrite(7,HIGH);
+            delay(dell);
+            break;
+  }
+  for(int i=2; i<9;i++) digitalWrite(i,LOW);
+
+}
