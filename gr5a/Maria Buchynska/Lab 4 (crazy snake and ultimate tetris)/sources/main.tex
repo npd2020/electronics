@@ -1,0 +1,57 @@
+\documentclass{khsu}
+\usepackage{ulem}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=topline
+}
+
+\lstset{style=mystyle}
+
+\includeonly{
+title, 
+introduction, 
+authors, 
+chapter1, 
+chapter3, 
+conclusions, 
+bibliography
+}
+
+\begin{document}
+
+\include{title}
+\include{authors}
+\tableofcontents
+\include{introduction}
+\include{chapter1}
+% \include{chapter3}
+
+\include{conclusions}
+% \include{bibliography}
+
+\end{document}
