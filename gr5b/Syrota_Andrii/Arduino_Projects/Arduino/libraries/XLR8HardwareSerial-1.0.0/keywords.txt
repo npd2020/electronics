@@ -1,0 +1,24 @@
+#######################################
+# Syntax Coloring Map For XLR8HardwareSerial
+####################################### 
+# Class
+#######################################
+XLR8HardwareSerial	KEYWORD1
+
+#######################################
+# Methods and Functions 
+#######################################	
+begin	KEYWORD2
+end	KEYWORD2
+available	KEYWORD2
+peek	KEYWORD2
+read	KEYWORD2
+availableForWrite	KEYWORD2
+flush	KEYWORD2
+write	KEYWORD2
+rx_complete_irq	KEYWORD2
+tx_udr_empty_irq	KEYWORD2
+
+#######################################
+# Constants
+#######################################
